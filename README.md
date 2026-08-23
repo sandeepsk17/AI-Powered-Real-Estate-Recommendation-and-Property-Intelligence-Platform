@@ -4,19 +4,35 @@ An end-to-end Machine Learning powered real estate valuation platform that predi
 
 The platform enables users to estimate property values instantly by providing property specifications such as city, location, area, bedrooms, and amenities through an intuitive web interface powered by FastAPI.
 
+## 🚀 Live Demo
+
+🔗 **[Try the Live Demo](https://ai-powered-real-estate-recommendation-r0xe.onrender.com/)**
+
+> **Live Application:** https://ai-powered-real-estate-recommendation-r0xe.onrender.com/
+
+### 🎯 Try It Yourself
+
+1. Select a **City**
+2. Select a **Location**
+3. Enter the **Property Area**
+4. Select the number of **Bedrooms**
+5. Choose available **Amenities**
+6. Click **Predict Price**
+7. Get an **AI-powered estimated property value instantly**
+
 ---
 
 ## 🚀 Project Overview
 
 Real estate valuation is influenced by multiple factors including:
 
-- Property Area
-- Number of Bedrooms
-- City
-- Location
-- Geographic Coordinates
-- Amenities
-- Property Type (Resale/New)
+* Property Area
+* Number of Bedrooms
+* City
+* Location
+* Geographic Coordinates
+* Amenities
+* Property Type (Resale/New)
 
 Traditional property valuation often requires extensive market research and expert consultation.
 
@@ -28,10 +44,10 @@ This project leverages Machine Learning and Geospatial Feature Engineering to pr
 
 Property buyers, investors, and real estate professionals often face challenges in:
 
-- Determining fair property prices
-- Comparing locations
-- Evaluating investment opportunities
-- Understanding location-driven price variations
+* Determining fair property prices
+* Comparing locations
+* Evaluating investment opportunities
+* Understanding location-driven price variations
 
 This platform addresses these challenges by providing AI-driven property valuations based on historical real estate data and location intelligence.
 
@@ -55,13 +71,13 @@ Supports property valuation across major Indian cities.
 
 Considers:
 
-- Gymnasium
-- Swimming Pool
-- Club House
-- Power Backup
-- Lift
-- AC
-- Car Parking
+* Gymnasium
+* Swimming Pool
+* Club House
+* Power Backup
+* Lift
+* AC
+* Car Parking
 
 ### ⚡ Fast API Inference
 
@@ -71,10 +87,10 @@ Provides real-time predictions through FastAPI REST APIs.
 
 Interactive frontend with:
 
-- Dynamic City Selection
-- Dynamic Location Selection
-- Real-Time Predictions
-- Responsive Design
+* Dynamic City Selection
+* Dynamic Location Selection
+* Real-Time Predictions
+* Responsive Design
 
 ---
 
@@ -84,10 +100,10 @@ Interactive frontend with:
 
 Collected historical real estate datasets containing:
 
-- Property Details
-- Location Information
-- Amenities
-- Price Information
+* Property Details
+* Location Information
+* Amenities
+* Price Information
 
 ---
 
@@ -95,10 +111,10 @@ Collected historical real estate datasets containing:
 
 Performed:
 
-- Missing Value Handling
-- Duplicate Removal
-- Outlier Detection
-- Data Standardization
+* Missing Value Handling
+* Duplicate Removal
+* Outlier Detection
+* Data Standardization
 
 Example:
 
@@ -170,17 +186,17 @@ coordinates, enabling the model to understand geographical relationships between
 
 Multiple algorithms were evaluated:
 
-- Linear Regression
-- Random Forest Regressor
-- Gradient Boosting Regressor
-- XGBoost Regressor
+* Linear Regression
+* Random Forest Regressor
+* Gradient Boosting Regressor
+* XGBoost Regressor
 
 The final model was selected based on:
 
-- R² Score
-- MAE
-- RMSE
-- Cross Validation Performance
+* R² Score
+* MAE
+* RMSE
+* Cross Validation Performance
 
 ---
 
@@ -241,27 +257,27 @@ for production-ready inference.
 
 ## Backend
 
-- Python
-- FastAPI
-- Pandas
-- NumPy
-- Joblib
+* Python
+* FastAPI
+* Pandas
+* NumPy
+* Joblib
 
 ## Machine Learning
 
-- Scikit-Learn
-- XGBoost
+* Scikit-Learn
+* XGBoost
 
 ## Frontend
 
-- HTML5
-- CSS3
-- JavaScript
+* HTML5
+* CSS3
+* JavaScript
 
 ## Deployment
 
-- Uvicorn
-- FastAPI
+* Uvicorn
+* FastAPI
 
 ---
 
@@ -340,9 +356,9 @@ Response:
 
 Property datasets contained:
 
-- Missing Values
-- Duplicate Entries
-- Inconsistent Location Names
+* Missing Values
+* Duplicate Entries
+* Inconsistent Location Names
 
 Resolved through extensive preprocessing.
 
@@ -360,20 +376,20 @@ Implemented latitude-longitude mapping and custom geospatial features to improve
 
 Avoided overfitting using:
 
-- Cross Validation
-- Feature Engineering
-- Hyperparameter Tuning
+* Cross Validation
+* Feature Engineering
+* Hyperparameter Tuning
 
 ---
 
 # 📈 Future Enhancements
 
-- Deep Learning Models
-- Property Recommendation Engine
-- Interactive Maps Integration
-- Market Trend Forecasting
-- RAG-Based Real Estate Assistant
-- Generative AI Property Insights
+* Deep Learning Models
+* Property Recommendation Engine
+* Interactive Maps Integration
+* Market Trend Forecasting
+* RAG-Based Real Estate Assistant
+* Generative AI Property Insights
 
 ---
 
@@ -381,21 +397,23 @@ Avoided overfitting using:
 
 This project strengthened expertise in:
 
-- Machine Learning Pipelines
-- Feature Engineering
-- Geospatial Data Processing
-- FastAPI Development
-- Model Deployment
-- Real Estate Analytics
-- End-to-End AI Product Development
+* Machine Learning Pipelines
+* Feature Engineering
+* Geospatial Data Processing
+* FastAPI Development
+* Model Deployment
+* Real Estate Analytics
+* End-to-End AI Product Development
 
 ---
 
 # 👨‍💻 Author
 
 **Sandeep Kumar**
-Sandeepspk1797@gmail.com
+📧 [Sandeepspk1797@gmail.com](mailto:Sandeepspk1797@gmail.com)
 
 ---
 
 ⭐ If you found this project useful, consider giving it a star.
+
+🔗 **Live Demo:** https://ai-powered-real-estate-recommendation-r0xe.onrender.com/
