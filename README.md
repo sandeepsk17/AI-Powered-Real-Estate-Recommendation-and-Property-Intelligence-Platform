@@ -265,32 +265,6 @@ for production-ready inference.
 
 ---
 
-# 📂 Project Structure
-
-```text
-AI-RealEstate-Prediction/
-│
-├── main.py
-├── requirements.txt
-├── README.md
-│
-├── models/
-│   ├── house_price_pipeline.pkl
-│   ├── city_location_mapping.pkl
-│   └── location_lat_long.pkl
-│
-├── static/
-│   ├── index.html
-│   ├── style.css
-│   └── script.js
-│
-└── screenshots/
-    ├── home.png
-    └── prediction.png
-```
-
----
-
 # 🔌 API Endpoints
 
 ## Get Available Cities
