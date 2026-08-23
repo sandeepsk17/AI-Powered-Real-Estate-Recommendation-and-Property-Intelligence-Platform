@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>House Price Prediction</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                url("https://i.pinimg.com/736x/b6/da/75/b6da75d006f432bba761d3c878f48244.jpg") center/cover fixed no-repeat;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 40px 20px;
+
+            overflow-x: hidden;
+        }
+
+        /* Background overlay */
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+
+            background: rgba(255, 255, 255, 0.76);
+
+            backdrop-filter: blur(5px);
+
+            z-index: 0;
+        }
+
+        /* Main container */
+
+        .container {
+            width: 1200px;
+            max-width: 100%;
+
+            position: relative;
+            z-index: 5;
+        }
+
+        /* Hero */
+
+        .hero-title {
+            margin-bottom: 35px;
+        }
+
+        .hero-title h1 {
+            font-size: clamp(40px, 6vw, 70px);
+
+            line-height: 1.1;
+
+            font-weight: 700;
+
+            color: #20487a;
+
+            letter-spacing: -2px;
+        }
+
+        .hero-title h2 {
+            font-size: clamp(25px, 4vw, 45px);
+
+            color: #63b57b;
+
+            font-weight: 600;
+
+            margin-top: 5px;
+        }
+
+        .hero-subtitle {
+            margin-top: 10px;
+
+            color: #687386;
+
+            font-size: 15px;
+        }
+
+        /* Main content */
+
+        .content {
+            display: flex;
+
+            align-items: center;
+
+            gap: 45px;
+        }
+
+        /* House image */
+
+        .house-image {
+            flex: 1;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+        }
+
+        .house-image img {
+            width: 100%;
+
+            max-width: 470px;
+
+            filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.15));
+
+            animation: floatHouse 4s ease-in-out infinite;
+        }
+
+        @keyframes floatHouse {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Form card */
+
+        .form-card {
+            flex: 1.25;
+
+            background: rgba(255, 255, 255, 0.88);
+
+            backdrop-filter: blur(20px);
+
+            border: 1px solid rgba(255, 255, 255, 0.8);
+
+            border-radius: 25px;
+
+            padding: 32px;
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.12);
+
+            transition: 0.3s;
+        }
+
+        .form-card:hover {
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.16);
+        }
+
+        /* Section */
+
+        .section-title {
+            color: #2f3d56;
+
+            margin-bottom: 18px;
+
+            font-size: 19px;
+
+            font-weight: 600;
+        }
+
+        /* Form grid */
+
+        .grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 18px;
+        }
+
+        .input-group {
+            display: flex;
+
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 7px;
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            color: #596273;
+        }
+
+        input,
+        select {
+            width: 100%;
+
+            height: 48px;
+
+            border: 1px solid transparent;
+
+            outline: none;
+
+            background: #f3f5f7;
+
+            border-radius: 11px;
+
+            padding: 0 15px;
+
+            font-size: 14px;
+
+            color: #26364a;
+
+            transition: 0.25s;
+        }
+
+        input:focus,
+        select:focus {
+            background: white;
+
+            border-color: #63b57b;
+
+            box-shadow:
+                0 0 0 3px rgba(99, 181, 123, 0.12);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        /* Amenities */
+
+        .amenities {
+            margin-top: 28px;
+        }
+
+        .amenity-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 10px;
+        }
+
+        .amenity {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            background: #f6f7f8;
+
+            padding: 12px;
+
+            border-radius: 11px;
+
+            color: #4e5968;
+
+            font-size: 13px;
+
+            cursor: pointer;
+
+            border: 1px solid transparent;
+
+            transition: 0.2s;
+        }
+
+        .amenity:hover {
+            background: #eef8f0;
+
+            border-color: #c9e8d0;
+        }
+
+        .amenity input {
+            width: 17px;
+
+            height: 17px;
+
+            accent-color: #43a35a;
+
+            cursor: pointer;
+        }
+
+        /* Button */
+
+        .predict-btn {
+            width: 100%;
+
+            margin-top: 27px;
+
+            border: none;
+
+            height: 55px;
+
+            border-radius: 14px;
+
+            font-size: 17px;
+
+            font-weight: 600;
+
+            color: white;
+
+            cursor: pointer;
+
+            background:
+                linear-gradient(135deg,
+                    #4caf50,
+                    #2e7d32);
+
+            box-shadow:
+                0 8px 20px rgba(46, 125, 50, 0.22);
+
+            transition: 0.25s;
+        }
+
+        .predict-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px rgba(46, 125, 50, 0.3);
+        }
+
+        .predict-btn:active {
+            transform: translateY(0);
+        }
+
+        .predict-btn:disabled {
+            opacity: 0.65;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+        /* Loader */
+
+        .loader {
+            display: none;
+
+            text-align: center;
+
+            margin-top: 18px;
+
+            color: #4f5d6e;
+
+            font-size: 14px;
+        }
+
+        .spinner {
+            display: inline-block;
+
+            width: 20px;
+            height: 20px;
+
+            border: 3px solid #d8eadb;
+
+            border-top-color: #3d9a4b;
+
+            border-radius: 50%;
+
+            animation: spin 0.8s linear infinite;
+
+            vertical-align: middle;
+
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Result */
+
+        .result-box {
+            margin-top: 20px;
+
+            background:
+                linear-gradient(135deg,
+                    #e5f8e7,
+                    #d3f0d6);
+
+            border: 1px solid #bce4c2;
+
+            border-radius: 16px;
+
+            padding: 20px;
+
+            text-align: center;
+
+            display: none;
+
+            animation: resultAppear 0.4s ease;
+        }
+
+        @keyframes resultAppear {
+
+            from {
+                opacity: 0;
+
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform: translateY(0);
+            }
+        }
+
+        .result-label {
+            color: #53715a;
+
+            font-size: 13px;
+
+            margin-bottom: 5px;
+        }
+
+        .result-box h2 {
+            color: #267333;
+
+            font-size: 27px;
+
+            font-weight: 700;
+        }
+
+        /* Error */
+
+        .error-box {
+            display: none;
+
+            margin-top: 18px;
+
+            padding: 14px;
+
+            border-radius: 12px;
+
+            background: #fff0f0;
+
+            border: 1px solid #ffcaca;
+
+            color: #c0392b;
+
+            font-size: 13px;
+
+            text-align: center;
+        }
+
+        /* API status */
+
+        .api-status {
+            position: fixed;
+
+            right: 20px;
+            bottom: 20px;
+
+            z-index: 20;
+
+            background: rgba(255, 255, 255, 0.9);
+
+            padding: 9px 14px;
+
+            border-radius: 30px;
+
+            font-size: 12px;
+
+            color: #687386;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+
+            display: inline-block;
+
+            border-radius: 50%;
+
+            background: #aaa;
+
+            margin-right: 6px;
+        }
+
+        .status-dot.online {
+            background: #38a951;
+        }
+
+        .status-dot.offline {
+            background: #e74c3c;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 950px) {
+
+            body {
+                padding: 30px 15px;
+            }
+
+            .content {
+                flex-direction: column;
+            }
+
+            .house-image {
+                width: 100%;
+            }
+
+            .house-image img {
+                max-width: 350px;
+            }
+
+            .form-card {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .hero-title {
+                text-align: center;
+
+                margin-bottom: 25px;
+            }
+
+            .hero-title h1 {
+                letter-spacing: -1px;
+            }
+
+            .content {
+                gap: 20px;
+            }
+
+            .form-card {
+                padding: 22px 18px;
+
+                border-radius: 20px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .amenity-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .api-status {
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="api-status">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">Checking API...</span>
+    </div>
+
+
+    <div class="container">
+
+        <!-- HERO -->
+
+        <div class="hero-title">
+
+            <h1>Smart Property Valuation</h1>
+            
+            <h2>Powered by Artificial Intelligence</h2>
+            
+            <p class="hero-subtitle">
+                Predict home prices across major Indian cities using advanced machine learning models.
+            </p>
+
+        </div>
+
+
+        <div class="content">
+
+
+            <!-- HOUSE IMAGE -->
+
+            <div class="house-image">
+
+                <img src="https://i.pinimg.com/736x/8f/ed/43/8fed431b3093e898b353ed36ce479087.jpg" alt="Modern house">
+
+            </div>
+
+
+            <!-- FORM CARD -->
+
+            <div class="form-card">
+
+                <h3 class="section-title">
+                    🏠 House Details
+                </h3>
+
+
+                <form id="predictForm">
+
+
+                    <div class="grid">
+
+
+                        <!-- City -->
+
+                        <div class="input-group">
+
+                            <label for="city">
+                                City
+                            </label>
+
+                            <select id="city" required>
+
+                                <option value="">
+                                    Select City
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Area -->
+
+                        <div class="input-group">
+
+                            <label for="area">
+                                Area (sqft)
+                            </label>
+
+                            <input type="number" id="area" placeholder="e.g. 1200" min="1" required>
+
+                        </div>
+
+
+                        <!-- Bedrooms -->
+
+                        <div class="input-group">
+
+                            <label for="bedrooms">
+                                Bedrooms
+                            </label>
+
+                            <input type="number" id="bedrooms" placeholder="e.g. 3" min="1" required>
+
+                        </div>
+
+
+                        <!-- Location -->
+
+                        <div class="input-group">
+
+                            <label for="locationSelect">
+                                Location
+                            </label>
+
+                            <select id="locationSelect" required disabled>
+
+                                <option value="">
+                                    Select city first
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- AMENITIES -->
+
+                    <div class="amenities">
+
+                        <h3 class="section-title">
+                            ✨ Amenities
+                        </h3>
+
+
+                        <div class="amenity-grid">
+
+
+                            <label class="amenity">
+
+                                <input type="checkbox" id="gymnasium">
+
+                                Gymnasium
+
+                            </label>
+
+
+                            <label class="amenity">
+
+                                <input type="checkbox" id="swimming_pool">
+
+                                Swimming Pool
+
+                            </label>
+
+
+                            <label class="amenity">
+
+                                <input type="checkbox" id="clubhouse">
+
+                                Club House
+
+                            </label>
+
+
+                            <label class="amenity">
+
+                                <input type="checkbox" id="power_backup">
+
+                                Power Backup
+
+                            </label>
+
+
+                            <label class="amenity">
+
+                                <input type="checkbox" id="car_parking">
+
+                                Car Parking
+
+                            </label>
+
+
+                            <label class="amenity">
+
+                                <input type="checkbox" id="lift_available">
+
+                                Lift
+
+                            </label>
+
+
+                            <label class="amenity">
+
+                                <input type="checkbox" id="ac">
+
+                                AC
+
+                            </label>
+
+
+                            <label class="amenity">
+                                <input type="checkbox" id="resale">
+                                Resale Property
+                            </label>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BUTTON -->
+
+                    <button type="submit" class="predict-btn" id="predictBtn">
+
+                        Predict House Price
+
+                    </button>
+
+
+                </form>
+
+
+                <!-- LOADER -->
+
+                <div class="loader" id="loader">
+
+                    <span class="spinner"></span>
+
+                    Predicting house price...
+
+                </div>
+
+
+                <!-- ERROR -->
+
+                <div class="error-box" id="errorBox">
+
+                </div>
+
+
+                <!-- RESULT -->
+
+                <div class="result-box" id="resultBox">
+
+                    <div class="result-label">
+                        Estimated Property Value
+                    </div>
+
+                    <h2 id="priceResult">
+                        ₹ 0
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /*
+        ==========================================
+        API CONFIGURATION
+        ==========================================
+        */
+
+        const API = "http://127.0.0.1:8000";
+
+
+        /*
+        ==========================================
+        DOM ELEMENTS
+        ==========================================
+        */
+
+        const citySelect =
+            document.getElementById("city");
+
+        const locationSelect =
+            document.getElementById("locationSelect");
+
+        const predictForm =
+            document.getElementById("predictForm");
+
+        const predictBtn =
+            document.getElementById("predictBtn");
+
+        const loader =
+            document.getElementById("loader");
+
+        const resultBox =
+            document.getElementById("resultBox");
+
+        const priceResult =
+            document.getElementById("priceResult");
+
+        const errorBox =
+            document.getElementById("errorBox");
+
+        const statusDot =
+            document.getElementById("statusDot");
+
+        const statusText =
+            document.getElementById("statusText");
+
+
+        /*
+        ==========================================
+        LOAD CITIES
+        ==========================================
+        */
+
+        async function loadCities() {
+
+            try {
+
+                const response =
+                    await fetch(`${API}/cities`);
+
+                if (!response.ok) {
+                    throw new Error("Unable to load cities");
+                }
+
+                const data =
+                    await response.json();
+
+
+                citySelect.innerHTML =
+                    `<option value="">Select City</option>`;
+
+
+                data.cities.forEach(city => {
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value = city;
+
+                    option.textContent = city;
+
+                    citySelect.appendChild(option);
+
+                });
+
+
+                setApiStatus(true);
+
+            } catch (error) {
+
+                console.error(error);
+
+                setApiStatus(false);
+
+                showError(
+                    "Unable to connect to the FastAPI server. Make sure your backend is running on port 8000."
+                );
+
+            }
+
+        }
+
+
+        /*
+        ==========================================
+        LOAD LOCATIONS
+        ==========================================
+        */
+
+        async function loadLocations(city) {
+
+            locationSelect.innerHTML =
+                `<option value="">Loading locations...</option>`;
+
+            locationSelect.disabled = true;
+
+
+            if (!city) {
+
+                locationSelect.innerHTML =
+                    `<option value="">Select city first</option>`;
+
+                return;
+
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API}/locations/${encodeURIComponent(city)}`
+                    );
+
+
+                if (!response.ok) {
+                    throw new Error("Unable to load locations");
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                locationSelect.innerHTML =
+                    `<option value="">Select Location</option>`;
+
+
+                if (!data.locations ||
+                    data.locations.length === 0) {
+
+                    locationSelect.innerHTML =
+                        `<option value="">No locations found</option>`;
+
+                    return;
+
+                }
+
+
+                data.locations.forEach(location => {
+
+                    const option =
+                        document.createElement("option");
+
+                    option.value = location;
+
+                    option.textContent = location;
+
+                    locationSelect.appendChild(option);
+
+                });
+
+
+                locationSelect.disabled = false;
+
+
+            } catch (error) {
+
+                console.error(error);
+
+                locationSelect.innerHTML =
+                    `<option value="">Unable to load locations</option>`;
+
+                showError(
+                    "Could not load locations for this city."
+                );
+
+            }
+
+        }
+
+
+        /*
+        ==========================================
+        CITY CHANGE
+        ==========================================
+        */
+
+        citySelect.addEventListener(
+            "change",
+            function () {
+
+                hideMessages();
+
+                loadLocations(this.value);
+
+            }
+        );
+
+
+        /*
+        ==========================================
+        PREDICT PRICE
+        ==========================================
+        */
+
+        predictForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                hideMessages();
+
+
+                const area =
+                    Number(
+                        document.getElementById("area").value
+                    );
+
+
+                const bedrooms =
+                    Number(
+                        document.getElementById("bedrooms").value
+                    );
+
+
+                const city =
+                    citySelect.value;
+
+
+                const selectedLocation =
+                    locationSelect.value;
+
+
+                /*
+                Validation
+                */
+
+                if (!area || area <= 0) {
+
+                    showError(
+                        "Please enter a valid area."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!bedrooms || bedrooms <= 0) {
+
+                    showError(
+                        "Please enter a valid number of bedrooms."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!city) {
+
+                    showError(
+                        "Please select a city."
+                    );
+
+                    return;
+
+                }
+
+
+                if (!selectedLocation) {
+
+                    showError(
+                        "Please select a location."
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                Create payload
+                */
+
+                const payload = {
+                    area: area,
+                    bedrooms: bedrooms,
+                    city: city,
+                    location: selectedLocation,
+
+                    gymnasium: document.getElementById("gymnasium").checked ? 1 : 0,
+                    swimming_pool: document.getElementById("swimming_pool").checked ? 1 : 0,
+                    clubhouse: document.getElementById("clubhouse").checked ? 1 : 0,
+                    power_backup: document.getElementById("power_backup").checked ? 1 : 0,
+                    car_parking: document.getElementById("car_parking").checked ? 1 : 0,
+                    lift_available: document.getElementById("lift_available").checked ? 1 : 0,
+                    ac: document.getElementById("ac").checked ? 1 : 0,
+
+                    resale: document.getElementById("resale").checked ? 1 : 0
+                };
+
+                console.log(
+                    "Prediction Payload:",
+                    payload
+                );
+
+
+                /*
+                Show loader
+                */
+
+                loader.style.display = "block";
+
+                predictBtn.disabled = true;
+
+                predictBtn.innerText =
+                    "Predicting...";
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            `${API}/predict`,
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(payload)
+                            }
+                        );
+
+
+                    if (!response.ok) {
+
+                        const errorData =
+                            await response.json()
+                                .catch(() => null);
+
+                        throw new Error(
+                            errorData?.detail ||
+                            "Prediction request failed."
+                        );
+
+                    }
+
+
+                    const data =
+                        await response.json();
+
+
+                    console.log(
+                        "Prediction Response:",
+                        data
+                    );
+
+
+                    /*
+                    Display price
+                    */
+
+                    const price = Number(data.predicted_price);
+
+
+                    if (Number.isNaN(price)) {
+
+                        throw new Error(
+                            "Invalid prediction received from server."
+                        );
+
+                    }
+
+
+                    priceResult.textContent =
+                        `₹ ${price.toLocaleString("en-IN", {
+                            maximumFractionDigits: 2
+                        })} Lakh`;
+
+
+                    resultBox.style.display =
+                        "block";
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Prediction Error:",
+                        error
+                    );
+
+
+                    showError(
+                        error.message ||
+                        "Something went wrong while predicting the house price."
+                    );
+
+                } finally {
+
+                    loader.style.display =
+                        "none";
+
+                    predictBtn.disabled =
+                        false;
+
+                    predictBtn.innerText =
+                        "Predict House Price";
+
+                }
+
+            }
+        );
+
+
+        /*
+        ==========================================
+        ERROR MESSAGE
+        ==========================================
+        */
+
+        function showError(message) {
+
+            errorBox.textContent =
+                message;
+
+            errorBox.style.display =
+                "block";
+
+        }
+
+
+        /*
+        ==========================================
+        HIDE RESULT / ERROR
+        ==========================================
+        */
+
+        function hideMessages() {
+
+            errorBox.style.display =
+                "none";
+
+            resultBox.style.display =
+                "none";
+
+        }
+
+
+        /*
+        ==========================================
+        API STATUS
+        ==========================================
+        */
+
+        function setApiStatus(online) {
+
+            if (online) {
+
+                statusDot.classList.add(
+                    "online"
+                );
+
+                statusDot.classList.remove(
+                    "offline"
+                );
+
+                statusText.textContent =
+                    "API Connected";
+
+            } else {
+
+                statusDot.classList.add(
+                    "offline"
+                );
+
+                statusDot.classList.remove(
+                    "online"
+                );
+
+                statusText.textContent =
+                    "API Offline";
+
+            }
+
+        }
+
+
+        /*
+        ==========================================
+        START APPLICATION
+        ==========================================
+        */
+
+        loadCities();
+
+    </script>
+
+</body>
+
+</html>
