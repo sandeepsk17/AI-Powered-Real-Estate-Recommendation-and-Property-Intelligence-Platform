@@ -420,10 +420,7 @@ This project strengthened expertise in:
 # 👨‍💻 Author
 
 **Sandeep Kumar**
-
-Founder & CEO, TechSPR IT Private Limited
-
-Building AI-powered solutions for real-world business challenges.
+Sandeepspk1797@gmail.com
 
 ---
 
