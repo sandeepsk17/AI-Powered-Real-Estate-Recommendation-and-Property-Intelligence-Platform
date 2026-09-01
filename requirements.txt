@@ -14,3 +14,4 @@ langchain
 langchain-mistralai
 langchain-community
 python-dotenv
+langchain_huggingface
