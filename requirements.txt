@@ -12,3 +12,5 @@ faiss-cpu
 sentence-transformers
 langchain
 langchain-mistralai
+langchain-community
+python-dotenv
