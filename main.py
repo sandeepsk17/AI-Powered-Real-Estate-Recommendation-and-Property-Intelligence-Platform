@@ -12,6 +12,8 @@ from langchain_core.retrievers import RetrieverInput
 from langchain_huggingface import HuggingFaceEmbeddings
 import faiss
 from dotenv import load_dotenv
+from langchain_google_genai import ChatGoogleGenerativeAI
+
 
 load_dotenv()
 
@@ -29,8 +31,8 @@ app = FastAPI(title="AI Real Estate Recommendation API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://d1044jhuklqhnb.cloudfront.net"],
-    allow_credentials=False,
+    allow_origins=["*"],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -90,8 +92,7 @@ class ChatRequest(BaseModel):
 
 
 def get_recommendations(
-    request_data: HouseRequest, predicted_price: float, top_k: int = 20
-):
+    request_data: HouseRequest, predicted_price: float, top_k: int = 20):
 
     query = f"""
     Property in {request_data.location}, {request_data.city}.
@@ -575,7 +576,8 @@ retriever_rag = db.as_retriever(
     search_type="similarity", search_kwargs={"k": 4, "fetch_k": 10, "lambda_mult": 0.7}
 )
 
-llm = ChatMistralAI(model="mistral-medium-latest")
+# llm = ChatMistralAI(model="mistral-medium-latest")
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
 
 message = []
 
