@@ -15,6 +15,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+from sentence_transformers import SentenceTransformer
+
 # =====================================================
 # APP
 # =====================================================
@@ -50,6 +52,8 @@ property_descriptions = joblib.load("property_descriptions.pkl")
 property_metadata = joblib.load("property_metadata.pkl")
 
 index = faiss.read_index("property_index.faiss")
+
+embedding_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
 
 print("All files loaded successfully.")
@@ -102,7 +106,7 @@ def get_recommendations(
     AC {'yes' if request_data.ac else 'no'}.
     """
 
-    query_embedding = embeddings_rag.encode(query, convert_to_numpy=True).astype(
+    query_embedding = embedding_model.encode(query, convert_to_numpy=True).astype(
         np.float32
     )
 

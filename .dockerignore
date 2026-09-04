@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+venv312/
+.venv/
+
+# Environment/secrets
+.env
+.env.*
+!.env.example
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Testing/cache
+.pytest_cache/
+.mypy_cache/
+.coverage
+
+# Documentation
+README.md
+
+# Training files
+model_training.ipynb
+
+# Dataset - exclude if not needed by API
+Indian_House_Prices.csv
