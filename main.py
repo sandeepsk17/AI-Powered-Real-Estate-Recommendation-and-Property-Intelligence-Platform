@@ -31,11 +31,16 @@ app = FastAPI(title="AI Real Estate Recommendation API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "https://d1044jhuklhqnb.cloudfront.net",
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
+
 
 # =====================================================
 # LOAD MODELS & FILES
