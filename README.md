@@ -416,4 +416,4 @@ This project strengthened expertise in:
 
 ⭐ If you found this project useful, consider giving it a star.
 
-🔗 **Live Demo:** https://ai-powered-real-estate-recommendation-r0xe.onrender.com/
+🔗 **Live Demo:** 
