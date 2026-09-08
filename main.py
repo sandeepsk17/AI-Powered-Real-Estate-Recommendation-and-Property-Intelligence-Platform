@@ -35,7 +35,16 @@ app.add_middleware(
         "http://localhost:3000",
         "http://localhost:5173",
         "https://d1044jhuklhqnb.cloudfront.net",
-    ]
+    ],
+    allow_credentials=True,
+    allow_methods=[
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "OPTIONS",
+    ],
+    allow_headers=["*"],
 )
 
 
