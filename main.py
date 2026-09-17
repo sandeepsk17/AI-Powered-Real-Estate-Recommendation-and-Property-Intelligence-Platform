@@ -208,138 +208,83 @@ def get_locations(city: str):
 @app.post("/predict")
 def predict(data: HouseRequest):
 
-    try:
-        # -----------------------------------------
-        # Validate location
-        # -----------------------------------------
-        if data.location not in location_lat_long:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Location '{data.location}' not found"
-            )
-
-        latitude = location_lat_long[data.location]["Latitude"]
-        longitude = location_lat_long[data.location]["Longitude"]
-
-        # -----------------------------------------
-        # Create input dataframe
-        # -----------------------------------------
-        input_df = pd.DataFrame([{
-            "Area": float(data.area),
-            "No. of Bedrooms": int(data.bedrooms),
-            "Latitude": float(latitude),
-            "Longitude": float(longitude),
-
-            "Resale": int(data.resale),
-            "Gymnasium": int(data.gymnasium),
-            "SwimmingPool": int(data.swimming_pool),
-            "ClubHouse": int(data.clubhouse),
-            "PowerBackup": int(data.power_backup),
-            "CarParking": int(data.car_parking),
-            "LiftAvailable": int(data.lift_available),
-            "AC": int(data.ac),
-
-            "City": str(data.city),
-            "Location": str(data.location),
-        }])
-
-        # -----------------------------------------
-        # Feature Engineering
-        # -----------------------------------------
-        input_df["Area_per_Bedroom"] = (
-            input_df["Area"] /
-            input_df["No. of Bedrooms"].replace(0, np.nan)
-        )
-
-        input_df["Area_per_Bedroom"] = (
-            input_df["Area_per_Bedroom"].fillna(0)
-        )
-
-        input_df["Lat_Long"] = (
-            input_df["Latitude"] *
-            input_df["Longitude"]
-        )
-
-        input_df["Luxury_Score"] = (
-            input_df["Gymnasium"]
-            + input_df["SwimmingPool"]
-            + input_df["ClubHouse"]
-            + input_df["PowerBackup"]
-            + input_df["LiftAvailable"]
-        )
-
-        # -----------------------------------------
-        # Columns used during model training
-        # -----------------------------------------
-        for col in [
-            "JoggingTrack",
-            "Wardrobe",
-            "Wifi"
-        ]:
-            input_df[col] = 0
-
-        # -----------------------------------------
-        # DEBUG
-        # -----------------------------------------
-        print("\n========== PRICE PREDICTION ==========")
-        print("Request:")
-        print(data.model_dump())
-
-        print("\nInput dataframe:")
-        print(input_df)
-
-        print("\nInput columns:")
-        print(input_df.columns.tolist())
-
-        # -----------------------------------------
-        # Model prediction
-        # -----------------------------------------
-        prediction_log = model.predict(input_df)[0]
-
-        print("\nRaw model prediction:")
-        print(prediction_log)
-
-        # -----------------------------------------
-        # Convert log prediction back to price
-        # -----------------------------------------
-        predicted_price = float(np.expm1(prediction_log))
-
-        print("\nFinal predicted price:")
-        print(predicted_price)
-        print("======================================\n")
-
-        # -----------------------------------------
-        # Recommendations
-        # -----------------------------------------
-        recommendations = get_recommendations(
-            request_data=data,
-            predicted_price=predicted_price
-        )
-
-        return {
-            "success": True,
-            "predicted_price": round(predicted_price, 2),
-            "recommended_properties": recommendations
-        }
-
-    except HTTPException:
-        raise
-
-    except Exception as e:
-
-        print("\n========== PREDICTION ERROR ==========")
-        print("ERROR TYPE:", type(e).__name__)
-        print("ERROR:", str(e))
-        print("======================================\n")
+    if data.location not in location_lat_long:
 
         raise HTTPException(
-            status_code=500,
-            detail={
-                "message": "Price prediction failed",
-                "error_type": type(e).__name__,
-                "error": str(e)
-            }
+            status_code=400, detail=f"Location '{data.location}' not found"
         )
+
+    latitude = location_lat_long[data.location]["Latitude"]
+    longitude = location_lat_long[data.location]["Longitude"]
+
+    input_df = pd.DataFrame(
+        [
+            {
+                "Area": data.area,
+                "No. of Bedrooms": data.bedrooms,
+                "Latitude": latitude,
+                "Longitude": longitude,
+                "Resale": data.resale,
+                "Gymnasium": data.gymnasium,
+                "SwimmingPool": data.swimming_pool,
+                "ClubHouse": data.clubhouse,
+                "PowerBackup": data.power_backup,
+                "CarParking": data.car_parking,
+                "LiftAvailable": data.lift_available,
+                "AC": data.ac,
+                "City": data.city,
+                "Location": data.location,
+            }
+        ]
+    )
+
+    # Feature Engineering
+
+    input_df["Area_per_Bedroom"] = input_df["Area"] / input_df["No. of Bedrooms"]
+
+    input_df["Lat_Long"] = input_df["Latitude"] * input_df["Longitude"]
+
+    input_df["Luxury_Score"] = (
+        input_df["Gymnasium"]
+        + input_df["SwimmingPool"]
+        + input_df["ClubHouse"]
+        + input_df["PowerBackup"]
+        + input_df["LiftAvailable"]
+    )
+
+    # Missing columns used during training
+
+    for col in ["JoggingTrack", "Wardrobe", "Wifi"]:
+        input_df[col] = 0
+
+    # Price Prediction
+
+    try:
+        prediction_log = model.predict(input_df)[0]
+    except Exception as e:
+    print("========== PREDICTION ERROR ==========")
+    print("ERROR TYPE:", type(e).__name__)
+    print("ERROR MESSAGE:", str(e))
+    print("ERROR REPR:", repr(e))
+    print("INPUT COLUMNS:", input_df.columns.tolist())
+    print("INPUT DATA:")
+    print(input_df.to_dict(orient="records"))
+    print("=======================================")
+    raise
+
+    predicted_price = float(np.expm1(prediction_log))
+
+    # Property Recommendation
+
+    recommendations = get_recommendations(
+        request_data=data, predicted_price=predicted_price
+    )
+
+    return {
+        "predicted_price": round(predicted_price, 2),
+        "recommended_properties": recommendations,
+    }
+
 
 from langchain_core.prompts import ChatPromptTemplate
 
