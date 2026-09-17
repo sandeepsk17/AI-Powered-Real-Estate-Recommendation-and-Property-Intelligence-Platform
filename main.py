@@ -259,18 +259,9 @@ def predict(data: HouseRequest):
 
     # Price Prediction
 
-    try:
-        prediction_log = model.predict(input_df)[0]
-    except Exception as e:
-    print("========== PREDICTION ERROR ==========")
-    print("ERROR TYPE:", type(e).__name__)
-    print("ERROR MESSAGE:", str(e))
-    print("ERROR REPR:", repr(e))
-    print("INPUT COLUMNS:", input_df.columns.tolist())
-    print("INPUT DATA:")
-    print(input_df.to_dict(orient="records"))
-    print("=======================================")
-    raise
+    
+    prediction_log = model.predict(input_df)[0]
+    
 
     predicted_price = float(np.expm1(prediction_log))
 
