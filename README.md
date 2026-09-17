@@ -6,9 +6,9 @@ The platform enables users to estimate property values instantly by providing pr
 
 ## 🚀 Live Demo
 
-🔗 **[Try the Live Demo](https://ai-powered-real-estate-recommendation-r0xe.onrender.com/)**
+🔗 **[Try the Live Demo](https://d1044jhuklhqnb.cloudfront.net/)**
 
-> **Live Application:** https://ai-powered-real-estate-recommendation-r0xe.onrender.com/
+> **Live Application:** https://d1044jhuklhqnb.cloudfront.net/
 
 ### 🎯 Try It Yourself
 
@@ -416,4 +416,4 @@ This project strengthened expertise in:
 
 ⭐ If you found this project useful, consider giving it a star.
 
-🔗 **Live Demo:** 
+🔗 **Live Demo:** : https://d1044jhuklhqnb.cloudfront.net/
