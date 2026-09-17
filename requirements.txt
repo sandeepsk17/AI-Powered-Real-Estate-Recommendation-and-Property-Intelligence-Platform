@@ -5,7 +5,7 @@ pandas==2.3.2
 numpy==2.3.2
 scikit-learn==1.6.1
 joblib==1.5.2
-category-encoders==2.6.4
+category-encoders==2.10.0
 lightgbm==4.6.0
 
 pydantic==2.11.7
